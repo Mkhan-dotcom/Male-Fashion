@@ -1,5 +1,5 @@
 # Male Fashion E-Commerce Website
-
+Authur -> Muhammad Khan    -> email -> "mkhansethar65@gmal.com"
 A fully functional e-commerce platform for men's fashion with an integrated admin panel for product management.
 
 ## Features
@@ -56,44 +56,7 @@ A fully functional e-commerce platform for men's fashion with an integrated admi
 - Searchable and filterable
 - Full shopping cart integration
 
-## File Structure
-
-```
-ecommerce/
-├── index.html                    # Homepage
-├── shop.html                     # Products listing
-├── product.html                  # Product details
-├── cart.html                     # Shopping cart
-├── checkout.html                 # Checkout process
-├── login.html                    # Login page
-├── signup.html                   # Sign up page
-├── about.html                    # About us page
-├── contact.html                  # Contact form
-│
-├── admin/
-│   ├── admin.html               # Admin dashboard
-│   ├── add-product.html         # Add new product form
-│   ├── manage-products.html     # View all products
-│   └── admin.js                 # Admin functionality
-│
-├── assets/
-│   ├── css/
-│   │   ├── style.css            # Main stylesheet
-│   │   └── responsive.css       # Mobile responsive styles
-│   │
-│   ├── img/
-│   │   ├── products/            # Product images folder
-│   │   └── banners/             # Banner images folder
-│   │
-│   └── js/
-│       ├── main.js              # Core functionality
-│       ├── cart.js              # Shopping cart logic
-│       ├── auth.js              # Authentication
-│       └── animations.js        # Page animations
-│
-└── ADMIN_GUIDE.md              # Admin instructions
-```
-
+## git remote add origin https://github.com/Mkhan-dotcom/Male-Fashion.git
 ## How to Use
 
 ### For Customers
@@ -210,6 +173,10 @@ For detailed admin instructions, see `ADMIN_GUIDE.md`
 
 ## License
 This project is open source and available for personal and commercial use.
+
+NOTE -> Login Credentials for Admin Panle:
+username -> "admin"
+pasword->   "admin123"
 
 ---
 
