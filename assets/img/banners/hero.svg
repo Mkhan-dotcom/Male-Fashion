@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+  <defs>
+    <linearGradient id="gradient1" x1="0" y1="0" x2="1200" y2="600">
+      <stop offset="0%" style="stop-color:#2c3e50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#34495e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradient2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" style="stop-color:#ff9800;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#ff5722;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#gradient1)" />
+  <rect width="1200" height="600" fill="url(#gradient2)" />
+  
+  <!-- Decorative shapes -->
+  <circle cx="100" cy="100" r="80" fill="#ff9800" opacity="0.1" />
+  <circle cx="1100" cy="500" r="120" fill="#ff5722" opacity="0.08" />
+  <rect x="0" y="400" width="1200" height="200" fill="#000000" opacity="0.05" />
+  
+  <!-- Text Content -->
+  <text x="100" y="150" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="#ffffff">
+    Male Fashion
+  </text>
+  <text x="100" y="210" font-family="Arial, sans-serif" font-size="28" fill="#ff9800">
+    Premium Men's Collection
+  </text>
+  <text x="100" y="250" font-family="Arial, sans-serif" font-size="18" fill="#dddddd">
+    Discover the latest trends in men's fashion
+  </text>
+  
+  <!-- Call to action button outline -->
+  <rect x="100" y="300" width="200" height="50" rx="5" fill="none" stroke="#ff9800" stroke-width="2" />
+  <text x="200" y="335" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#ff9800" text-anchor="middle">
+    SHOP NOW
+  </text>
+  
+  <!-- Decorative image placeholder on right -->
+  <rect x="750" y="80" width="400" height="450" rx="10" fill="#ffffff" opacity="0.08" stroke="#ff9800" stroke-width="2" />
+  <text x="950" y="320" font-family="Arial, sans-serif" font-size="24" fill="#ff9800" text-anchor="middle" opacity="0.5">
+    👔
+  </text>
+</svg>

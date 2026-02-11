@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - Male Fashion</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/ordersummary.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Male Fashion</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="cart.html">Cart <span id="cart-count">(0)</span></a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="order-summary-page">
+        <div class="order-success-container">
+            <!-- Success Header -->
+            <div class="success-header">
+                <div class="success-checkmark">✓</div>
+                <h1>Thank You!</h1>
+                <p>Your order has been placed successfully</p>
+                <div class="success-message">
+                    We've sent a confirmation email to your inbox.
+                </div>
+            </div>
+
+            <!-- Order Details Card -->
+            <div class="order-details-card" id="order-details">
+                <!-- Will be populated by JavaScript -->
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn-action btn-print" onclick="printOrderSummary()">
+                    🖨️ Print Receipt
+                </button>
+                <button class="btn-action btn-download" onclick="downloadOrderSummary()">
+                    📥 Download Receipt
+                </button>
+                <a href="shop.html" class="btn-action btn-continue">
+                    ✓ Continue Shopping
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Male Fashion. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/currency.js"></script>
+    <script src="assets/js/ordersummary.js"></script>
+</body>
+</html>

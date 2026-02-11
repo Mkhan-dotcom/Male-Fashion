@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Male Fashion</title>
+    <link rel="stylesheet" href="../assets/css/admin-dashboard.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>👔 Admin Panel</h2>
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" onclick="showSection('dashboard')">
+                    <span class="icon">📊</span> Dashboard
+                </a>
+                <a href="#products" class="nav-item" onclick="showSection('products')">
+                    <span class="icon">🛍️</span> Products
+                </a>
+                <a href="#add-product" class="nav-item" onclick="showSection('add-product')">
+                    <span class="icon">➕</span> Add Product
+                </a>
+                <a href="#categories" class="nav-item" onclick="showSection('categories')">
+                    <span class="icon">📁</span> Categories
+                </a>
+                <a href="#settings" class="nav-item" onclick="showSection('settings')">
+                    <span class="icon">⚙️</span> Settings
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="admin-info">
+                    <div class="admin-avatar">👤</div>
+                    <div class="admin-details">
+                        <p class="admin-name" id="admin-name">Admin User</p>
+                        <p class="admin-role">M Khan</p>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="handleLogout()">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard</h1>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" placeholder="Search products..." id="search-input">
+                        <button onclick="searchProducts()">🔍</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-content">
+                            <h3>Total Products</h3>
+                            <p id="stat-total">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">➕</div>
+                        <div class="stat-content">
+                            <h3>Custom Products</h3>
+                            <p id="stat-custom">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-content">
+                            <h3>Total Value</h3>
+                            <p id="stat-value">$0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-content">
+                            <h3>Avg Price</h3>
+                            <p id="stat-avg">$0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="chart-card">
+                        <h3>Recent Products Added</h3>
+                        <div id="recent-products" class="recent-list"></div>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Quick Actions</h3>
+                        <div class="quick-actions">
+                            <button class="quick-action-btn" onclick="showSection('add-product')">
+                                <span>➕</span> Add New Product
+                            </button>
+                            <button class="quick-action-btn" onclick="showSection('products')">
+                                <span>📋</span> Manage Products
+                            </button>
+                            <button class="quick-action-btn" onclick="downloadBackup()">
+                                <span>💾</span> Download Backup
+                            </button>
+                            <button class="quick-action-btn" onclick="showRestoreUI()">
+                                <span>📂</span> Restore Backup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Products Section -->
+            <section id="products" class="section">
+                <div class="section-header">
+                    <h2>Manage Products</h2>
+                    <button class="btn-primary" onclick="showSection('add-product')">+ Add New Product</button>
+                </div>
+
+                <div class="filters">
+                    <input type="text" id="filter-search" placeholder="Search by name..." onkeyup="filterProducts()">
+                    <select id="filter-category" onchange="filterProducts()">
+                        <option value="">All Categories</option>
+                        <option value="shirts">Shirts</option>
+                        <option value="pants">Pants</option>
+                        <option value="jackets">Jackets</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="shoes">Shoes</option>
+                    </select>
+                </div>
+
+                <div class="products-table-container">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-list">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Add Product Section -->
+            <section id="add-product" class="section">
+                <div class="section-header">
+                    <h2>Add New Product</h2>
+                </div>
+
+                <form id="add-product-form" class="product-form" onsubmit="handleAddProduct(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-name">Product Name *</label>
+                            <input type="text" id="product-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-sku">SKU *</label>
+                            <input type="text" id="product-sku" name="sku" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-category">Category *</label>
+                            <select id="product-category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="shirts">Shirts</option>
+                                <option value="pants">Pants</option>
+                                <option value="jackets">Jackets</option>
+                                <option value="accessories">Accessories</option>
+                                <option value="shoes">Shoes</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-price">Price *</label>
+                            <input type="number" id="product-price" name="price" step="0.01" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-stock">Stock Quantity *</label>
+                            <input type="number" id="product-stock" name="stock" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-discount">Discount % (Optional)</label>
+                            <input type="number" id="product-discount" name="discount" min="0" max="100" value="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-description">Description *</label>
+                        <textarea id="product-description" name="description" rows="4" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Sizes Available</label>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="sizes" value="XS"> XS</label>
+                            <label><input type="checkbox" name="sizes" value="S"> S</label>
+                            <label><input type="checkbox" name="sizes" value="M"> M</label>
+                            <label><input type="checkbox" name="sizes" value="L"> L</label>
+                            <label><input type="checkbox" name="sizes" value="XL"> XL</label>
+                            <label><input type="checkbox" name="sizes" value="XXL"> XXL</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Colors Available</label>
+                        <div class="color-picker-group">
+                            <div class="color-input">
+                                <input type="color" id="color-1" value="#000000">
+                                <label for="color-1">Black</label>
+                            </div>
+                            <div class="color-input">
+                                <input type="color" id="color-2" value="#FFFFFF">
+                                <label for="color-2">White</label>
+                            </div>
+                            <div class="color-input">
+                                <input type="color" id="color-3" value="#1E90FF">
+                                <label for="color-3">Blue</label>
+                            </div>
+                            <div class="color-input">
+                                <input type="color" id="color-4" value="#FF0000">
+                                <label for="color-4">Red</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="product-image">Product Image *</label>
+                        <div class="image-upload">
+                            <input type="file" id="product-image" name="image" accept="image/*" onchange="previewImage(event)" required>
+                            <div class="upload-area">
+                                <span>📤 Click to upload or drag image here</span>
+                            </div>
+                        </div>
+                        <div id="image-preview-container" class="image-preview-container"></div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary">Add Product</button>
+                        <button type="reset" class="btn-secondary">Clear Form</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories" class="section">
+                <div class="section-header">
+                    <h2>Manage Categories</h2>
+                </div>
+
+                <div class="categories-grid" id="categories-list">
+                    <!-- Categories will be loaded here -->
+                </div>
+
+                <div class="add-category-form">
+                    <h3>Add New Category</h3>
+                    <form onsubmit="handleAddCategory(event)">
+                        <input type="text" id="new-category" placeholder="Category name" required>
+                        <button type="submit" class="btn-primary">Add Category</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section">
+                <div class="section-header">
+                    <h2>Settings</h2>
+                </div>
+
+                <div class="settings-panel">
+                    <div class="setting-card">
+                        <h3>Store Information</h3>
+                        <div class="form-group">
+                            <label>Store Name</label>
+                            <input type="text" id="store-name" value="Male Fashion" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>Store Email</label>
+                            <input type="email" id="store-email" value="admin@malefashion.com" class="setting-input">
+                        </div>
+                        <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+                    </div>
+
+                    <div class="setting-card">
+                        <h3>Admin Account</h3>
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" id="current-password" class="setting-input">
+                        </div>
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" id="new-password" class="setting-input">
+                        </div>
+                        <button class="btn-primary" onclick="changePassword()">Change Password</button>
+                    </div>
+
+                    <div class="setting-card">
+                        <h3>Data Management</h3>
+                        <button class="btn-secondary" onclick="downloadBackup()">📥 Download Backup</button>
+                        <button class="btn-secondary" onclick="showRestoreUI()">📤 Restore from Backup</button>
+                        <button class="btn-danger" onclick="confirmClearData()">🗑️ Clear All Data</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Product</h2>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <form id="edit-form" onsubmit="handleEditProduct(event)">
+                <input type="hidden" id="edit-product-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-name">Product Name</label>
+                        <input type="text" id="edit-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-price">Price</label>
+                        <input type="number" id="edit-price" step="0.01" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-stock">Stock</label>
+                        <input type="number" id="edit-stock" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-discount">Discount %</label>
+                        <input type="number" id="edit-discount" min="0" max="100">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="edit-description">Description</label>
+                    <textarea id="edit-description" rows="4" required></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="admin-auth.js"></script>
+    <script src="admin-dashboard.js"></script>
+</body>
+</html>

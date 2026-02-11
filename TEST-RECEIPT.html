@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🧪 Quick Test - Receipt Modal</title>
+    <style>
+        body { font-family: Arial; background: #f0f0f0; padding: 20px; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; }
+        h1 { color: #333; }
+        p { line-height: 1.6; color: #666; }
+        .btn { background: #27ae60; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        .btn:hover { background: #229954; }
+        .steps { background: #f9f9f9; padding: 15px; border-left: 4px solid #27ae60; margin: 15px 0; }
+        .code { background: #f4f4f4; padding: 10px; border-radius: 4px; font-family: monospace; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Receipt Modal - Quick Test</h1>
+        
+        <div class="steps">
+            <h3>✅ What We Fixed:</h3>
+            <ul>
+                <li>Receipt modal now displays after order</li>
+                <li>Cart clears completely</li>
+                <li>Cart count updates to (0)</li>
+                <li>All order details show correctly</li>
+            </ul>
+        </div>
+
+        <div class="steps">
+            <h3>📋 Test Steps (3 min):</h3>
+            <ol>
+                <li>Go to <strong>shop.html</strong></li>
+                <li>Add 1-2 items to cart</li>
+                <li>Go to cart and click "Checkout"</li>
+                <li>Fill ALL form fields:
+                    <div class="code">
+                        Name: John Doe<br>
+                        Email: john@test.com<br>
+                        Phone: 555-1234<br>
+                        Address: 123 Main St<br>
+                        City: New York<br>
+                        State: NY<br>
+                        Zip: 10001
+                    </div>
+                </li>
+                <li>Select <strong>"Pay on Delivery"</strong></li>
+                <li>Check terms and conditions</li>
+                <li>Click <strong>"Complete Order"</strong></li>
+                <li><strong>⭐ You should see:</strong>
+                    <ul>
+                        <li>Alert: "Processing your order..."</li>
+                        <li>Alert: "✅ Order Confirmed!"</li>
+                        <li>Green receipt modal appears</li>
+                        <li>Shows all your order details</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="steps">
+            <h3>🔍 Verify Everything Works:</h3>
+            <ul>
+                <li>✅ Receipt shows your order number</li>
+                <li>✅ Receipt shows all items you bought</li>
+                <li>✅ Receipt shows correct total</li>
+                <li>✅ Go back to shop and cart shows (0)</li>
+                <li>✅ Cart is completely empty</li>
+            </ul>
+        </div>
+
+        <div class="steps">
+            <h3>💳 Test Payment Toggle:</h3>
+            <p>Before clicking Complete Order, try:</p>
+            <ol>
+                <li>Select <strong>"Pay on Delivery"</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>✓ Card section should <strong>hide</strong></li>
+                    </ul>
+                </li>
+                <li>Select <strong>"Pay Now"</strong>
+                    <ul style="margin-top: 5px;">
+                        <li>✓ Card section should <strong>show</strong></li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <button class="btn" onclick="window.location.href='shop.html'">Go to Shop →</button>
+
+        <p style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ccc; text-align: center; color: #999;">
+            If receipt doesn't appear, open browser console (F12) and report the error
+        </p>
+    </div>
+
+    <script>
+        console.log('✅ Test page loaded');
+    </script>
+</body>
+</html>

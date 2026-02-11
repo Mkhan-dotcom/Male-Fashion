@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - Male Fashion</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Male Fashion</h1>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="cart.html">Cart <span id="cart-count">(0)</span></a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Product Details -->
+    <div class="product-detail-container">
+        <div class="container">
+            <div class="product-detail">
+                <div class="product-images">
+                    <div class="main-image">
+                        <img id="main-product-image" src="" alt="Product Image">
+                    </div>
+                    <div class="thumbnail-images" id="thumbnail-images">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="product-info">
+                    <h1 id="product-name"></h1>
+                    <div class="rating">
+                        <span class="stars" id="product-rating"></span>
+                        <span id="review-count">(0 reviews)</span>
+                    </div>
+
+                    <div class="price-section">
+                        <h2 class="price" id="product-price"></h2>
+                        <p class="stock-status" id="stock-status"></p>
+                    </div>
+
+                    <p class="description" id="product-description"></p>
+
+                    <div class="product-options">
+                        <div class="option-group">
+                            <label>Size:</label>
+                            <div class="size-options" id="size-options"></div>
+                        </div>
+
+                        <div class="option-group">
+                            <label>Color:</label>
+                            <div class="color-options" id="color-options"></div>
+                        </div>
+
+                        <div class="option-group">
+                            <label>Quantity:</label>
+                            <input type="number" id="quantity" min="1" value="1" max="10">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" onclick="addToCart()">Add to Cart</button>
+                    <button class="btn btn-secondary btn-large" onclick="addToWishlist()">Add to Wishlist</button>
+
+                    <div class="product-meta">
+                        <p><strong>SKU:</strong> <span id="sku"></span></p>
+                        <p><strong>Category:</strong> <span id="category"></span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <section class="related-products">
+                <h2>Related Products</h2>
+                <div class="products-grid" id="related-products">
+                    <!-- Related products will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Male Fashion. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/currency.js"></script>
+    <script src="assets/js/cart.js"></script>
+    <script src="assets/js/animations.js"></script>
+</body>
+</html>

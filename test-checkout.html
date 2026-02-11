@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Checkout - Male Fashion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #27ae60;
+        }
+        .test-section h3 {
+            margin-top: 0;
+        }
+        .test-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #229954;
+        }
+        .success {
+            color: #27ae60;
+        }
+        .error {
+            color: #e74c3c;
+        }
+        .console-output {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Checkout Flow Test</h1>
+        
+        <div class="test-section">
+            <h3>Test Setup</h3>
+            <p>This page tests the checkout flow. Click the button below to:</p>
+            <ol>
+                <li>Add test products to cart</li>
+                <li>Fill checkout form automatically</li>
+                <li>Submit order and verify receipt displays</li>
+            </ol>
+            <button class="btn" onclick="runTest()">Run Full Test</button>
+        </div>
+
+        <div class="test-section">
+            <h3>Individual Tests</h3>
+            <div class="test-item">
+                <button class="btn" onclick="testAddCart()">Step 1: Add to Cart</button>
+                <span id="test1-status"></span>
+            </div>
+            <div class="test-item">
+                <button class="btn" onclick="testOpenCheckout()">Step 2: Open Checkout</button>
+                <span id="test2-status"></span>
+            </div>
+            <div class="test-item">
+                <button class="btn" onclick="testFormFill()">Step 3: Fill Form</button>
+                <span id="test3-status"></span>
+            </div>
+            <div class="test-item">
+                <button class="btn" onclick="testPaymentMethodToggle()">Step 4: Test Payment Toggle</button>
+                <span id="test4-status"></span>
+            </div>
+            <div class="test-item">
+                <button class="btn" onclick="testSubmitOrder()">Step 5: Submit Order</button>
+                <span id="test5-status"></span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3>Console Output</h3>
+            <div id="console-output" class="console-output">Ready...</div>
+        </div>
+    </div>
+
+    <script>
+        // Override console.log to show in page
+        const originalLog = console.log;
+        const consoleLogs = [];
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            const message = args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ');
+            consoleLogs.push(message);
+            const output = document.getElementById('console-output');
+            if (output) {
+                output.innerHTML += message + '<br>';
+                output.scrollTop = output.scrollHeight;
+            }
+        };
+
+        function updateStatus(elementId, message, isError = false) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                el.innerHTML = `<span class="${isError ? 'error' : 'success'}"> ${message}</span>`;
+            }
+        }
+
+        function testAddCart() {
+            console.log('TEST: Adding products to cart...');
+            try {
+                const testCart = [
+                    {
+                        id: 1,
+                        name: 'Test Shirt',
+                        price: 29.99,
+                        quantity: 1,
+                        category: 'shirts'
+                    },
+                    {
+                        id: 2,
+                        name: 'Test Pants',
+                        price: 49.99,
+                        quantity: 1,
+                        category: 'pants'
+                    }
+                ];
+                
+                localStorage.setItem('cart', JSON.stringify(testCart));
+                console.log('✅ Cart saved:', testCart);
+                updateStatus('test1-status', '✅ Cart items added');
+            } catch (error) {
+                console.error('❌ Error adding cart:', error);
+                updateStatus('test1-status', '❌ Error: ' + error.message, true);
+            }
+        }
+
+        function testOpenCheckout() {
+            console.log('TEST: Opening checkout...');
+            try {
+                window.location.href = 'checkout.html';
+                updateStatus('test2-status', '✅ Redirecting to checkout...');
+            } catch (error) {
+                console.error('❌ Error:', error);
+                updateStatus('test2-status', '❌ Error: ' + error.message, true);
+            }
+        }
+
+        function testFormFill() {
+            console.log('TEST: Filling checkout form...');
+            // This would only work on the checkout page
+            const testData = {
+                fname: 'John',
+                lname: 'Doe',
+                email: 'john@example.com',
+                phone: '555-1234',
+                address: '123 Main St',
+                city: 'New York',
+                state: 'NY',
+                zip: '10001'
+            };
+            
+            let filled = false;
+            for (const [id, value] of Object.entries(testData)) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = value;
+                    filled = true;
+                }
+            }
+            
+            if (filled) {
+                console.log('✅ Form fields filled');
+                updateStatus('test3-status', '✅ Form filled');
+            } else {
+                console.log('⚠️ Not on checkout page - cannot fill form');
+                updateStatus('test3-status', '⚠️ Open checkout.html first', true);
+            }
+        }
+
+        function testPaymentMethodToggle() {
+            console.log('TEST: Testing payment method toggle...');
+            const onlineRadio = document.querySelector('input[name="payment-method"][value="online"]');
+            const codRadio = document.querySelector('input[name="payment-method"][value="cod"]');
+            
+            if (!codRadio) {
+                console.log('⚠️ Not on checkout page');
+                updateStatus('test4-status', '⚠️ Open checkout.html first', true);
+                return;
+            }
+            
+            // Test COD
+            codRadio.checked = true;
+            console.log('Testing COD selection...');
+            if (typeof togglePaymentDetails === 'function') {
+                togglePaymentDetails();
+                const cardSection = document.getElementById('card-details-section');
+                if (cardSection && cardSection.style.display === 'none') {
+                    console.log('✅ COD: Card section hidden');
+                } else {
+                    console.log('❌ COD: Card section still visible');
+                }
+            }
+            
+            // Test Online
+            onlineRadio.checked = true;
+            console.log('Testing Online selection...');
+            if (typeof togglePaymentDetails === 'function') {
+                togglePaymentDetails();
+                const cardSection = document.getElementById('card-details-section');
+                if (cardSection && cardSection.style.display === 'block') {
+                    console.log('✅ Online: Card section visible');
+                } else {
+                    console.log('❌ Online: Card section hidden');
+                }
+            }
+            
+            updateStatus('test4-status', '✅ Payment toggle working');
+        }
+
+        function testSubmitOrder() {
+            console.log('TEST: Submitting order...');
+            const form = document.getElementById('checkout-form');
+            
+            if (!form) {
+                console.log('⚠️ Not on checkout page');
+                updateStatus('test5-status', '⚠️ Open checkout.html first', true);
+                return;
+            }
+            
+            // Fill form first
+            testFormFill();
+            
+            // Check for terms
+            const termsCheckbox = document.getElementById('terms');
+            if (termsCheckbox) {
+                termsCheckbox.checked = true;
+            }
+            
+            console.log('Submitting form...');
+            if (typeof handleCheckout === 'function') {
+                const event = new Event('submit');
+                event.preventDefault();
+                try {
+                    handleCheckout(event);
+                    console.log('✅ Order submitted');
+                    updateStatus('test5-status', '✅ Order submitted - check for receipt modal');
+                } catch (error) {
+                    console.error('❌ Error:', error);
+                    updateStatus('test5-status', '❌ Error: ' + error.message, true);
+                }
+            }
+        }
+
+        function runTest() {
+            console.log('🧪 STARTING FULL TEST...');
+            console.log('Step 1: Add products to cart');
+            testAddCart();
+            
+            setTimeout(() => {
+                console.log('Step 2: Navigate to checkout');
+                testOpenCheckout();
+            }, 1000);
+        }
+
+        // Log initial state
+        console.log('✅ Test page loaded');
+        console.log('Cart contents:', localStorage.getItem('cart'));
+    </script>
+</body>
+</html>

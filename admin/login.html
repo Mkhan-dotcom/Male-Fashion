@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Male Fashion</title>
+    <link rel="stylesheet" href="../assets/css/admin-login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1> Male Fashion</h1>
+                <p>Admin Panel</p>
+            </div>
+
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                </div>
+
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+
+            <!-- <div class="login-info">
+                <p><strong>Demo Credentials:</strong></p>
+                <p>Username: <code>admin</code></p>
+                <p>Password: <code>admin123</code></p>
+            </div> -->
+
+
+ 
+                <div class="login-info">
+                <p><strong>Login To Access Admin Panel:</strong></p>
+                <p> Enter your user name & passcode</p>
+                <p> TO Access Admin Panel</p> <br>
+                <p><i>Designed by M. Khan</i></p>
+            </div>
+
+
+
+
+
+            <div class="divider"></div>
+
+            <a href="../index.html" class="back-link">← Back to Store</a>
+        </div>
+
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="admin-auth.js"></script>
+</body>
+</html>

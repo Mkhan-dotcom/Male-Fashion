@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product - Male Fashion Admin</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar">
+            <h2>Male Fashion</h2>
+            <ul>
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="add-product.html" class="active">Add Product</a></li>
+                <li><a href="manage-products.html">Manage Products</a></li>
+                <li><a href="#orders">Orders</a></li>
+                <li><a href="#customers">Customers</a></li>
+                <li><a href="#settings">Settings</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Admin Main Content -->
+        <main class="admin-main">
+            <div class="admin-header">
+                <h1>Add New Product</h1>
+            </div>
+
+            <div class="admin-form-container">
+                <form id="add-product-form" onsubmit="handleAddProduct(event)">
+                    <div class="form-section">
+                        <h2>Product Information</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-name">Product Name *</label>
+                                <input type="text" id="product-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-sku">SKU *</label>
+                                <input type="text" id="product-sku" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-description">Description *</label>
+                            <textarea id="product-description" rows="5" placeholder="Enter detailed product description" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-category">Category *</label>
+                                <select id="product-category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="shirts">Shirts</option>
+                                    <option value="pants">Pants</option>
+                                    <option value="shoes">Shoes</option>
+                                    <option value="accessories">Accessories</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-brand">Brand</label>
+                                <input type="text" id="product-brand" placeholder="Enter brand name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Pricing & Stock</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="product-price">Price ($) *</label>
+                                <input type="number" id="product-price" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-stock">Stock Quantity *</label>
+                                <input type="number" id="product-stock" min="0" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Product Image *</h2>
+                        
+                        <div class="form-group">
+                            <label for="product-image">Upload Image</label>
+                            <div class="image-upload-container">
+                                <input type="file" id="product-image" accept="image/*" required onchange="previewImage(event)">
+                                <div id="image-preview" class="image-preview"></div>
+                            </div>
+                            <small>Recommended size: 1000x1000px (PNG, JPG, WEBP)</small>
+                            <div style="margin-top:8px;">
+                                <label for="product-image-filename">Image Filename (optional)</label>
+                                <input type="text" id="product-image-filename" placeholder="example.jpg">
+                                <small>Use this if you already placed the image file in assets/img/products/</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Product Variants</h2>
+                        
+                        <div class="form-group">
+                            <label for="product-sizes">Available Sizes</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="size" value="S"> Small (S)</label>
+                                <label><input type="checkbox" name="size" value="M"> Medium (M)</label>
+                                <label><input type="checkbox" name="size" value="L"> Large (L)</label>
+                                <label><input type="checkbox" name="size" value="XL"> Extra Large (XL)</label>
+                                <label><input type="checkbox" name="size" value="XXL"> 2X Large (XXL)</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-colors">Available Colors</label>
+                            <input type="text" id="product-colors" placeholder="e.g., Red, Blue, Green, Black (comma separated)">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">Add Product</button>
+                        <a href="admin.html" class="btn btn-secondary btn-large">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <style>
+        .admin-form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            max-width: 1000px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .form-section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #1a1a1a;
+            box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.1);
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-group input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .admin-form-container {
+                padding: 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <script src="../assets/js/main.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>
