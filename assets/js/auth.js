@@ -143,6 +143,25 @@ function logout() {
     }, 1000);
 }
 
+// Helper: display modal popup
+function showPopup(message) {
+    let modal = document.getElementById('contact-modal');
+    if (!modal) return;
+    const msgElem = document.getElementById('contact-modal-message');
+    if (msgElem) msgElem.textContent = message;
+    modal.classList.add('active');
+}
+
+// initialize modal close handler
+document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('contact-modal-close');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            document.getElementById('contact-modal').classList.remove('active');
+        });
+    }
+});
+
 // Handle contact form submission
 function handleContactForm(event) {
     event.preventDefault();
@@ -153,35 +172,54 @@ function handleContactForm(event) {
     const subject = document.getElementById('contact-subject').value;
     const message = document.getElementById('contact-message').value;
     
-    // Validate
+    // Validate required fields
     if (!name || !email || !subject || !message) {
-        showNotification('Please fill in all required fields', 'error');
+        showPopup('Please fill in all required fields');
         return;
     }
     
-    // Validate email
+    // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        showNotification('Please enter a valid email', 'error');
+        showPopup('Please enter a valid email');
         return;
     }
     
-    // Store message (in real app, would send to backend)
-    const contactData = {
-        name: name,
-        email: email,
-        phone: phone,
-        subject: subject,
-        message: message,
-        timestamp: new Date().toISOString()
+    // Prepare payload for Formspree
+    const formData = {
+        name,
+        email,
+        phone,
+        subject,
+        message
     };
     
-    let messages = JSON.parse(localStorage.getItem('contactMessages')) || [];
-    messages.push(contactData);
-    localStorage.setItem('contactMessages', JSON.stringify(messages));
-    
-    showNotification('Message sent successfully! We will contact you soon.');
-    
-    // Reset form
-    document.getElementById('contact-form').reset();
+    // use the form's configured action URL so we don't hardcode the ID here
+    const endpoint = document.getElementById('contact-form').action;
+    fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (response.ok) {
+            // custom success message
+            const msg = "Thank you! We'll be in touch ASAP.";
+            showPopup(msg);
+            // hide form and display inline thank‑you text
+            const form = document.getElementById('contact-form');
+            form.reset();
+            form.style.display = 'none';
+            const thankMsg = document.createElement('p');
+            thankMsg.textContent = msg;
+            thankMsg.className = 'contact-success-message';
+            form.parentNode.appendChild(thankMsg);
+        } else {
+            showPopup('Failed to send message. Please try again later.');
+        }
+    })
+    .catch(error => {
+        console.error('Contact form error:', error);
+        showPopup('Error sending message. Please try again later.');
+    });
 }
